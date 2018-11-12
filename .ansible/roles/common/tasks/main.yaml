@@ -1,0 +1,23 @@
+---
+
+- name: Install packages
+  yum:
+    name:
+      - unzip
+    state: present
+    update_cache: yes
+
+- name: Install Java and Gradle
+  include_tasks: roles/common/tasks/install-tarball.yaml
+  with_items:
+    - path: "/opt/gradle/"
+      uri: "https://services.gradle.org/distributions/"
+      tarball: "gradle-4.10.2-all.zip"
+      package: "gradle-4.10.2"
+      profile: "gradle.sh"
+    - path: "/opt/java/"
+      uri: "https://download.oracle.com/otn-pub/java/jdk/8u191-b12/2787e4a523244c269598db4e85c51e0c/"
+      tarball: "jdk-8u191-linux-x64.tar.gz"
+      package: "jdk1.8.0_191"
+      profile: "java.sh"
+      headers: {Cookie: "oraclelicense=accept-securebackup-cookie"}

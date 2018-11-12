@@ -1,0 +1,29 @@
+---
+
+- name: Make installation path
+  file:
+    path: "{{ item.path }}"
+    state: directory
+- name: Download archive
+  get_url:
+    url: "{{ item.uri + item.tarball }}"
+    dest: "{{ item.path }}"
+    headers: "{{ item.get('headers', '') }}"
+- name: Unarchive
+  unarchive:
+    src: "{{ item.path + item.tarball }}"
+    dest: "{{ item.path }}"
+    remote_src: yes
+- name: Remove archive
+  file:
+    path: "{{ item.path + item.tarball }}"
+    state: absent
+- name: Make symlink
+  file:
+    path: "{{ item.path }}current"
+    src: "{{ item.path + item.package }}"
+    state: link
+- name: Export environment variables
+  copy:
+    src: "{{ item.profile }}"
+    dest: /etc/profile.d/
