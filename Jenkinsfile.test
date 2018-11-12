@@ -1,0 +1,47 @@
+@Library("utils")
+
+
+import main.Logger
+//import java.util.logging.Logger
+//import java.util.logging.Level
+//import java.util.logging.ConsoleHandler
+//import java.util.logging.SimpleFormatter
+
+//@NonCPS
+//def log(message) {
+//    def logger = Logger.getLogger(TaskListener.class)
+//    def handler = new ConsoleHandler()
+//    logger.setLevel(Level.ALL)
+//    handler.setLevel(Level.ALL)
+//    handler.setFormatter(new SimpleFormatter())
+//    logger.addHandler(handler)
+//    logger.info(message)
+//}
+
+// @NonCPS
+// def log(String message) {
+//     ansiColor("xterm"){
+//         def logger = getContext(TaskListener.class).getLogger()
+//         logger.println("\u001B[1m$message\u001B[0m")
+//     }
+// } 
+
+//class MyLogger {
+//    private static out
+//    MyLogger(out){
+//        this.out = out
+//    }
+//    public static log(String message) {
+//        this.out.println("\u001B[31m$message\u001B[0m")
+//    }
+//}
+
+node() {
+    // def out = getBinding().getVariables()['out']
+    // def logger = new MyLogger(out)
+    Logger customLogger = new Logger(this)
+    customLogger.log("log in node")
+    stage('Checkout') {
+        customLogger.log("log in stage")
+    }
+}

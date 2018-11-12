@@ -1,0 +1,13 @@
+FROM centos:7
+
+RUN yum install -y wget && \
+        wget -qO - https://bootstrap.pypa.io/get-pip.py | \
+        python -Wignore && \
+        pip install ansible
+
+WORKDIR /ansible
+COPY .ansible ./
+
+RUN ansible-playbook -i inventory playbook.yaml
+
+CMD ["bash", "-l"]
