@@ -1,0 +1,21 @@
+---
+
+
+- job:
+    name: job-generator
+    description: 'Do not edit this job through the web'
+    scm:
+      - git:
+          url: git@github.com:CrazyTushkan/playground-jenkins.git
+          branches:
+            - origin/job-dsl
+          credentials: 9533fed4-1dbe-49f2-a07f-127298af0801
+          timeout: 20
+          basedir: dsl
+    builders:
+      - dsl:
+          targets: "dsl/*.groovy"
+          ignore-existing: false
+          removed-job-action: "DISABLE"
+          removed-view-action: "DELETE"
+          lookup-strategy: "SEED_JOB"
