@@ -1,38 +1,14 @@
 @Library("utils")
 
-import java.util.logging.Logger as JavaLogger
-import java.util.logging.Level
-import jenkins.model.Jenkins
-import hudson.logging.LogRecorder
-import hudson.logging.LogRecorderManager
 import main.Logger
-import org.jenkinsci.plugins.workflow.cps.CpsThreadGroup
 
 
 Logger customLogger = new Logger()
 
-// @NonCPS
-// def log() {
-//     Map<String, LogRecorder> logRecorders = Jenkins.get().getLog().logRecorders
-//     LogRecorder recorder = logRecorders.get('TestRecorder')
-//     if (!recorder) {
-//         recorder = new LogRecorder('TestRecorder')
-//         logRecorders.put('TestRecorder', recorder)
-//     }
-//     LogRecorder.Target target = new LogRecorder.Target('TestTarget', Level.ALL)
-//     List<LogRecorder.Target> targets = recorder.targets.getView()
-//     println(targets)
-//     if () {
-// //        recorder.targets.replaceBy(targets.append(target))
-//     }
-//     println JavaLogger.getLogger('TestTarget')
-// }
-
-customLogger.log(1, 'Pipeline log')
 node() {
-    customLogger.log(1, 'Node log')
+    customLogger.log('Node log')
     stage('Stage') {
-        customLogger.log(1, 'Stage log')
+        customLogger.log('Stage log')
     }
-//    buildWrapper { }
+    
 }
